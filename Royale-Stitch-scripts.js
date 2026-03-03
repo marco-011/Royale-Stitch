@@ -1,6 +1,4 @@
-// JavaScript Document
 
-/*
 
 // Hero Carousel
 const slides = document.querySelectorAll(".carousel-slide");
@@ -268,3 +266,4 @@ document
             observer.observe(el);
 
         });
+
