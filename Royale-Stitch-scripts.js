@@ -2,63 +2,73 @@
 
 /*
 
-TemplateMo 599 Noir Fashion
+// Hero Carousel
+const slides = document.querySelectorAll(".carousel-slide");
+const indicators = document.querySelectorAll(".indicator");
 
-https://templatemo.com/tm-599-noir-fashion
 
-*/
+let currentSlide = 0;
+let slideInterval;
 
- // Hero Carousel
-        const slides = document.querySelectorAll('.carousel-slide');
-        const indicators = document.querySelectorAll('.indicator');
-        let currentSlide = 0;
-        let slideInterval;
 
-        function showSlide(index) {
-            // Remove active class from all slides and indicators
-            slides.forEach(slide => slide.classList.remove('active'));
-            indicators.forEach(indicator => indicator.classList.remove('active'));
-            
-            // Add active class to current slide and indicator
-            slides[index].classList.add('active');
-            indicators[index].classList.add('active');
-            
-            currentSlide = index;
-        }
+function showSlide(index) {
+  slides.forEach((slide) => slide.classList.remove("active"));
+  indicators.forEach((indicator) => indicator.classList.remove("active"));
 
-        function nextSlide() {
-            currentSlide = (currentSlide + 1) % slides.length;
-            showSlide(currentSlide);
-        }
 
-        function startSlideShow() {
-            slideInterval = setInterval(nextSlide, 4000); // Change slide every 4 seconds
-        }
+  slides[index].classList.add("active");
 
-        function stopSlideShow() {
-            clearInterval(slideInterval);
-        }
 
-        // Start automatic slideshow
-        if (slides.length > 0) {
-            startSlideShow();
-            
-            // Manual navigation via indicators
-            indicators.forEach((indicator, index) => {
-                indicator.addEventListener('click', () => {
-                    stopSlideShow();
-                    showSlide(index);
-                    startSlideShow(); // Restart automatic slideshow
-                });
-            });
+  if (indicators[index]) {
+    indicators[index].classList.add("active");
+  }
 
-            // Pause on hover
-            const carousel = document.querySelector('.hero-carousel');
-            if (carousel) {
-                carousel.addEventListener('mouseenter', stopSlideShow);
-                carousel.addEventListener('mouseleave', startSlideShow);
-            }
-        }
+
+  currentSlide = index;
+}
+
+
+function nextSlide() {
+  currentSlide = (currentSlide + 1) % slides.length;
+  showSlide(currentSlide);
+}
+
+
+function startSlideShow() {
+  clearInterval(slideInterval);
+  slideInterval = setInterval(nextSlide, 4000);
+}
+
+
+function stopSlideShow() {
+  clearInterval(slideInterval);
+}
+
+
+if (slides.length > 0) {
+  startSlideShow();
+
+
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener("click", () => {
+      stopSlideShow();
+      showSlide(index);
+      startSlideShow();
+    });
+  });
+}
+
+
+document
+  .querySelector(".carousel")
+  .addEventListener("mouseenter", stopSlideShow);
+
+
+document
+  .querySelector(".carousel")
+  .addEventListener("mouseleave", startSlideShow);
+
+
 
         // Mobile menu toggle
         const menuToggle = document.getElementById('menuToggle');
@@ -256,4 +266,5 @@ https://templatemo.com/tm-599-noir-fashion
 
         document.querySelectorAll('.featured-container, .contact-content').forEach(el => {
             observer.observe(el);
+
         });
